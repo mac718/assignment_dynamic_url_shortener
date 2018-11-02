@@ -1,0 +1,25 @@
+{
+  "name": "assignment_dynamic_url_shortener",
+  "version": "1.0.0",
+  "description": "Build a URL shortening service, outfitted with realtime analytics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikingeducation/assignment_dynamic_url_shortener.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vikingeducation/assignment_dynamic_url_shortener/issues"
+  },
+  "homepage": "https://github.com/vikingeducation/assignment_dynamic_url_shortener#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "redis": "^2.8.0"
+  }
+}
