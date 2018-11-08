@@ -20,14 +20,20 @@ var clicks = 0;
 io.on('connection', client => {
   console.log('new connection');
 
-  client.emit('new click', clicks);
+  
 
   client.on('shortened-link', (link) => {
     console.log(link)
     redisClient.hmget('clicks', link, (err, clicks) => {
+      //redisClient.hincrby
       console.log(clicks)
-      clicks++;
-      io.emit('new click', clicks);
+      redisClient.hmset('clicks', link, parseInt(clicks) + 1)
+      //clicks++;
+      redisClient.hmget('clicks', link, (err, clicks) => {
+        console.log("click data" + clicks);
+        io.emit('new click', clicks);
+      })
+      
     })
     
   })

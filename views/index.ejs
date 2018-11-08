@@ -26,13 +26,12 @@
       </tr>
     </thead>
     <tbody>
-      fix
       <%for(var link in links) {%>
         <%if(links[link].includes('goo.gl')){%>
           <tr>
             <td><%=link%></td>
             <td class="shortened-link"><%=links[link]%></td>
-            <td id=<%=/\/([a-zA-Z\d]*)/.exec(links[link])[1]%>></td><%//=obj[`${link}Clicks`]%>
+            <td id=<%=/\/([a-zA-Z\d]*)/.exec(links[link])[1]%>></td> <%//=obj[`${link}Clicks`]%>
           </tr>
         <%}%>
       <%}%>
@@ -47,7 +46,7 @@
   $('.shortened-link').click(function(e) {
     let link = e.currentTarget.innerText.toString().trim();
     let linkId = /\/([a-zA-Z\d]*)/.exec(e.currentTarget.innerText.toString())[1];
-    console.log(link);
+    console.log(linkId);
     socket.on('new click', data => {
       console.log(data)
       $(`#${linkId}`).html(data);
