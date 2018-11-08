@@ -3,8 +3,56 @@
 <head>
   <title></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+  <script src="/javascript/jquery-3.3.1.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 </head>
 <body class="container">
-  <h1>Herro! <%=count%></h1>
+  <div id="shortener-form">
+    <form action="/shorten" method="post">
+      <h2><label for="url">Simplify Your Links</label></h2>
+      <input type="text" name="url" placeholder="Your original URL here" class="form-control">
+
+      <input type="submit" name="submit" value="SHORTEN URL" class="btn btn-light">
+      
+    </form>
+  </div>
+  <table class="table" id="analytics">
+    <thead class="table-active">
+      <tr>
+        <th scope="col">Original URL</th>
+        <th scope="col">Short URL</th>
+        <th scope="col">All Clicks</th>
+      </tr>
+    </thead>
+    <tbody>
+      fix
+      <%for(var link in links) {%>
+        <%if(links[link].includes('goo.gl')){%>
+          <tr>
+            <td><%=link%></td>
+            <td class="shortened-link"><%=links[link]%></td>
+            <td id=<%=/\/([a-zA-Z\d]*)/.exec(links[link])[1]%>></td><%//=obj[`${link}Clicks`]%>
+          </tr>
+        <%}%>
+      <%}%>
+    </tbody>
+  </table>
 </body>
+<script type="text/javascript">
+  var socket = io.connect('http://localhost:3000');
+
+  
+
+  $('.shortened-link').click(function(e) {
+    let link = e.currentTarget.innerText.toString().trim();
+    let linkId = /\/([a-zA-Z\d]*)/.exec(e.currentTarget.innerText.toString())[1];
+    console.log(link);
+    socket.on('new click', data => {
+      console.log(data)
+      $(`#${linkId}`).html(data);
+    })
+    socket.emit('shortened-link', `"${link}"`);
+  })
+</script>
 </html>

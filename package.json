@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/vikingeducation/assignment_dynamic_url_shortener#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
   }
 }

@@ -1,0 +1,24 @@
+#shortener-form {
+  background-color: #366ED1;
+  height: 250px;
+}
+
+input[name='url'] {
+  width: 60%;
+  margin-left: 100px;
+  display: inline-block;
+}
+
+label[for='url'] {
+  color: white;
+  margin-left: 100px;
+  margin-top: 50px;
+}
+
+input[name='submit'] {
+  color: #366ED1;
+}
+
+#analytics {
+  margin-top: 50px;
+}
