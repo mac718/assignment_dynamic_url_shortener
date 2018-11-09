@@ -31,7 +31,7 @@
           <tr>
             <td><%=link%></td>
             <td class="shortened-link"><%=links[link]%></td>
-            <td id=<%=/\/([a-zA-Z\d]*)/.exec(links[link])[1]%>></td> <%//=obj[`${link}Clicks`]%>
+            <td id=<%=/\/([a-zA-Z\d]*)/.exec(links[link])[1]%>></td>
           </tr>
         <%}%>
       <%}%>
@@ -40,18 +40,17 @@
 </body>
 <script type="text/javascript">
   var socket = io.connect('http://localhost:3000');
-
-  
+  let link;
+  let linkId;
+  socket.on('new click', data => {
+    $(`#${linkId}`).html(data);
+  })
 
   $('.shortened-link').click(function(e) {
-    let link = e.currentTarget.innerText.toString().trim();
-    let linkId = /\/([a-zA-Z\d]*)/.exec(e.currentTarget.innerText.toString())[1];
-    console.log(linkId);
-    socket.on('new click', data => {
-      console.log(data)
-      $(`#${linkId}`).html(data);
-    })
-    socket.emit('shortened-link', `"${link}"`);
+    link = e.currentTarget.innerText.toString().trim();
+    linkId = /\/([a-zA-Z\d]*)/.exec(e.currentTarget.innerText.toString())[1];
+    
+    socket.emit('shortened-link', `${link}`);
   })
 </script>
 </html>

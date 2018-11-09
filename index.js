@@ -23,19 +23,10 @@ io.on('connection', client => {
   
 
   client.on('shortened-link', (link) => {
-    console.log(link)
-    redisClient.hmget('clicks', link, (err, clicks) => {
-      //redisClient.hincrby
-      console.log(clicks)
-      redisClient.hmset('clicks', link, parseInt(clicks) + 1)
-      //clicks++;
-      redisClient.hmget('clicks', link, (err, clicks) => {
-        console.log("click data" + clicks);
-        io.emit('new click', clicks);
-      })
-      
+    console.log('link ' + link)
+    redisClient.hincrby('clicks', link, 1, (err, clicks) => {
+      io.emit('new click', clicks);
     })
-    
   })
 })
 
@@ -45,8 +36,6 @@ app.get('/', (req, res) => {
   redisClient.hgetall('links', (err, links) =>{
     
     redisClient.hgetall('clicks', (err,clicks) => {
-      console.log(clicks)
-
       res.render('index', {links, clicks, result});
     })
   })
@@ -54,14 +43,9 @@ app.get('/', (req, res) => {
 
 app.post('/shorten', (req, res) => {
   linkShortener.linkShortener(req.body.url)
-    .then((result) => {
-      console.log(result)
+    .then(() => {
       res.redirect('back')
     })
 })
-
-// app.listen(3000, 'localhost', () => {
-//   console.log('listening...')
-// })
 
 server.listen(3000);
