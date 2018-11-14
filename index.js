@@ -15,7 +15,7 @@ app.use(express.static(`${__dirname}/public`))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
-var clicks = 0;
+//var clicks = 0;
 
 io.on('connection', client => {
   console.log('new connection');
@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
   redisClient.hgetall('links', (err, links) =>{
     
     redisClient.hgetall('clicks', (err,clicks) => {
+      //res.sendFile(__dirname + '/views/index.ejs', {headers: {'content-type': 'application/ejs'}});
       res.render('index', {links, clicks, result});
     })
   })
@@ -44,7 +45,7 @@ app.get('/', (req, res) => {
 app.post('/shorten', (req, res) => {
   linkShortener.linkShortener(req.body.url)
     .then(() => {
-      res.redirect('back')
+      //res.redirect('back')
     })
 })
 

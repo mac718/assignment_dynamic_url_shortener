@@ -31,6 +31,9 @@
           <tr>
             <td><%=link%></td>
             <td class="shortened-link"><%=links[link]%></td>
+            <%if(clicks){%>
+              <td id=<%=/\/([a-zA-Z\d]*)/.exec(links[link])[1]%>><%=clicks[links[link]]%></td>
+            <%}%>
             <td id=<%=/\/([a-zA-Z\d]*)/.exec(links[link])[1]%>></td>
           </tr>
         <%}%>
